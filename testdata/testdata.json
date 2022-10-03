@@ -1,0 +1,16 @@
+{
+  "testData": [
+    {
+      "Id": "v3",
+      "catType": "British Shorthair",
+      "amount": "2",
+      "totalPrice": "1,870.00€",
+      "subTotal": "1,700.00€",
+      "taxAmount": "170.00€",
+      "shippingMethod": "5.50€",
+      "shippingRate": "5.00€",
+      "taxAfterShipping": "170.50€",
+      "TotalAfterShipping": "1,875.50€"
+    }
+  ]
+}
