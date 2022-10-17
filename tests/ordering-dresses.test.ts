@@ -3,9 +3,10 @@ import { test } from '../support-code/pages/index'
 import TestDataGenerator from '../support-code/utilities/testdata-generator';
 
 
-const randomAccount = TestDataGenerator.generateAccount()
+let randomAccount: any
 
 test.beforeEach(async ({ page, webshop }) => {
+  randomAccount = TestDataGenerator.generateAccount()
   await page.goto('')
   await expect(await webshop.homePage.getPageLocator()).toBeVisible()
   await webshop.homePage.NavBar.navigateToSignIn()
@@ -18,7 +19,9 @@ test.beforeEach(async ({ page, webshop }) => {
 
 test(`Ordering an evening dress`, async ({ webshop }) => {
   await test.step('Select Category and Product', async () => {
-    await webshop.myAccountPage.TopMenu.SelectProductCategory("Women", "Evening Dresses")
+    await webshop.myAccountPage.TopMenu.SelectProductCategory("Women")
+    await webshop.productsPage.selectSubCategory("Dresses")
+    await webshop.productsPage.selectSubCategory("Evening Dresses")
     await webshop.productsPage.selectProduct("Printed Dress")
   });
 
@@ -68,3 +71,5 @@ test(`Ordering an evening dress`, async ({ webshop }) => {
   });
 
 });
+
+//});

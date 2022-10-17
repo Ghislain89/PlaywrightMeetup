@@ -1,32 +1,31 @@
 import { Locator, Page } from "@playwright/test";
-import TopMenu from "./components/topMenu.component";
 
 export default class AuthenticationPage {
     page: Page;
     
     private pageLocator: Locator;
-    createNewAccountForm: Locator;
-    emailNewAccount: Locator;
-    accountCreationForm: Locator;
-    genderMale: Locator;
-    customerfirstName: Locator;
-    customerLastName: Locator;
-    customerEmail: Locator;
-    customerPassword: Locator;
-    customerDayOfBirth: Locator;
-    customerMonthOfBirth: Locator;
-    customerYearOfBirth: Locator;
-    shippingFirstName: Locator;
-    shippingLastName: Locator;
-    shippingAddress: Locator;
-    shippingCity: Locator;
-    shippingState: Locator;
-    shippingZipCode: Locator;
-    shippingCountry: Locator;
-    shippingMobile: Locator;
-    addressAlias: Locator;
-    createAccountButton: Locator;
-    submitAccount: Locator;
+    private createNewAccountForm: Locator;
+    private emailNewAccount: Locator;
+    private accountCreationForm: Locator;
+    private genderMale: Locator;
+    private customerfirstName: Locator;
+    private customerLastName: Locator;
+    private customerEmail: Locator;
+    private customerPassword: Locator;
+    private customerDayOfBirth: Locator;
+    private customerMonthOfBirth: Locator;
+    private customerYearOfBirth: Locator;
+    private shippingFirstName: Locator;
+    private shippingLastName: Locator;
+    private shippingAddress: Locator;
+    private shippingCity: Locator;
+    private shippingState: Locator;
+    private shippingZipCode: Locator;
+    private shippingCountry: Locator;
+    private shippingMobile: Locator;
+    private addressAlias: Locator;
+    private createAccountButton: Locator;
+    private submitAccount: Locator;
 
     constructor(page: Page) {
         this.page = page
