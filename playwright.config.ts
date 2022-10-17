@@ -1,11 +1,10 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-require('dotenv').config();
+
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -33,7 +32,7 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     viewport: {width: 1920, height: 1080},
-    baseURL: process.env.baseUrl,
+    baseURL: "http://automationpractice.com",
     headless: false,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 30000,
@@ -41,7 +40,7 @@ const config: PlaywrightTestConfig = {
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure',
+    trace: 'on',
   },
 
   /* Configure projects for major browsers */
