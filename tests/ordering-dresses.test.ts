@@ -16,7 +16,7 @@ test.beforeEach(async ({ page, webshop }) => {
 })
 
 
-test(`Ordering a dress`, async ({ webshop }) => {
+test(`Ordering an evening dress`, async ({ webshop }) => {
   await test.step('Select Category and Product', async () => {
     await webshop.myAccountPage.TopMenu.SelectProductCategory("Women", "Evening Dresses")
     await webshop.productsPage.selectProduct("Printed Dress")
@@ -65,7 +65,6 @@ test(`Ordering a dress`, async ({ webshop }) => {
 
   await test.step('Validate that the order has been confirmed', async () => {
     await expect(await webshop.orderConfirmationPage.getOrderConfirmationText()).toContainText("Your order on My Store is complete.")
-
   });
 
 });
