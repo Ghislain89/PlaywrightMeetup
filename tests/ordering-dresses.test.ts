@@ -69,7 +69,5 @@ test(`Ordering an evening dress`, async ({ webshop }) => {
   await test.step('Validate that the order has been confirmed', async () => {
     await expect(await webshop.orderConfirmationPage.getOrderConfirmationText()).toContainText("Your order on My Store is complete.")
   });
-
 });
 
-//});
