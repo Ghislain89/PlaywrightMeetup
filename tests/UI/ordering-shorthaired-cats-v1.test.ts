@@ -2,21 +2,15 @@ import { expect } from '@playwright/test';
 import {test} from '../../support-code/pages/index'
 import TestDataGenerator from '../../support-code/utilities/testdata-generator';
 
-let randomAccount 
-
-
-test.beforeEach(async ({ page, webshop }) => {
-  randomAccount = TestDataGenerator.generatePerson()
-  await page.goto('')
-  await webshop.homePage.topBarComponent.registerAccount()
-  await webshop.accountPage.setPersonalDetails(randomAccount)
-  await webshop.accountPage.setPassword(randomAccount)
-});
+const RandomAccount = TestDataGenerator.generatePerson()
 
 
 test(`Ordering a Bombay Cat`, async ({page, webshop}) => {
   await test.step('Select Category and Product', async () => {
-
+    await page.goto('')
+    await webshop.homePage.topBarComponent.registerAccount()
+    await webshop.accountPage.setPersonalDetails(RandomAccount)
+    await webshop.accountPage.setPassword(RandomAccount)
     
     await webshop.homePage.navBarComponent.SelectCategory("Cats", "Short Haired Cats")
     await webshop.productsPage.addProductToCart("Bombay")
@@ -42,8 +36,8 @@ test(`Ordering a Bombay Cat`, async ({page, webshop}) => {
   });
 
   await test.step('Add Personal Details to order and set billing and shipping adress to the same adress', async () => {
-    await webshop.checkoutPage.setPersonalDetails(randomAccount)
-    await webshop.checkoutPage.setAddressDetails(randomAccount)
+    await webshop.checkoutPage.setPersonalDetails(RandomAccount)
+    await webshop.checkoutPage.setAddressDetails(RandomAccount)
 
   });
 
@@ -76,7 +70,12 @@ test(`Ordering a Bombay Cat`, async ({page, webshop}) => {
 });
 
 test(`Ordering a British Shorthair Cat`, async ({page, webshop}) => {
-  await test.step('Select Category and Product', async () => {  
+  await test.step('Select Category and Product', async () => {
+    await page.goto('')
+    await webshop.homePage.topBarComponent.registerAccount()
+    await webshop.accountPage.setPersonalDetails(RandomAccount)
+    await webshop.accountPage.setPassword(RandomAccount)
+    
     await webshop.homePage.navBarComponent.SelectCategory("Cats", "Short Haired Cats")
     await webshop.productsPage.addProductToCart("British Shorthair")
     await expect(await webshop.productsPage.messageComponent.getSuccesMessageLocator()).toContainText("Success: You have added British Shorthair to your shopping cart!")
@@ -101,8 +100,8 @@ test(`Ordering a British Shorthair Cat`, async ({page, webshop}) => {
   });
 
   await test.step('Add Personal Details to order and set billing and shipping adress to the same adress', async () => {
-    await webshop.checkoutPage.setPersonalDetails(randomAccount)
-    await webshop.checkoutPage.setAddressDetails(randomAccount)
+    await webshop.checkoutPage.setPersonalDetails(RandomAccount)
+    await webshop.checkoutPage.setAddressDetails(RandomAccount)
 
   });
 
