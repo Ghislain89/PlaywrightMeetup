@@ -36,11 +36,15 @@ export default class CheckoutPage {
     private paymentMethodSection: Locator;
     private shippingMethod: Locator;
     private confirmOrder: Locator;
+    deliveryDetailsSection: Locator;
+    continueToDeliveryDetails: Locator;
 
     constructor(page: Page) {
         this.page = page
         this.checkoutOptionsSection = this.page.locator("#collapse-checkout-option")
+
         this.billingDetailsSection = this.page.locator("#collapse-payment-address")
+        this.deliveryDetailsSection = this.page.locator("#collapse-shipping-address")
         this.deliveryMethodSection = this.page.locator("#collapse-shipping-method")
         this.paymentMethodSection = this.page.locator("#collapse-payment-method")
         this.confirmOrderSection = this.page.locator("#collapse-checkout-confirm")
@@ -49,20 +53,20 @@ export default class CheckoutPage {
         this.continueToBillingDetails = this.checkoutOptionsSection.locator('input[value="Continue"]')
         
 
-        this.personalDetails = this.billingDetailsSection.locator("#account")
+        this.personalDetails = this.billingDetailsSection.locator("#payment-new")
         this.firstName = this.personalDetails.locator("#input-payment-firstname")
         this.lastName = this.personalDetails.locator("#input-payment-lastname")
         this.email = this.personalDetails.locator("#input-payment-email")
         this.telephone = this.personalDetails.locator("#input-payment-telephone")
 
-        this.addressDetails = this.billingDetailsSection.locator("#address")
-        this.address = this.addressDetails.locator("#input-payment-address-1")
-        this.city = this.addressDetails.locator("#input-payment-city")
-        this.postalCode = this.addressDetails.locator("#input-payment-postcode")
-        this.countryDropdown = this.addressDetails.locator("#input-payment-country")
-        this.regionDropdown = this.addressDetails.locator("#input-payment-zone");
-        this.sameAddressCheckbox = this.billingDetailsSection.locator('input[type="checkbox"][name="shipping_address"]')
-        this.continueToDeliveryMethod = this.billingDetailsSection.locator('input[value="Continue"]')
+        this.address = this.personalDetails.locator("#input-payment-address-1")
+        this.city = this.personalDetails.locator("#input-payment-city")
+        this.postalCode = this.personalDetails.locator("#input-payment-postcode")
+        this.countryDropdown = this.personalDetails.locator("#input-payment-country")
+        this.regionDropdown = this.personalDetails.locator("#input-payment-zone");
+        this.sameAddressCheckbox = this.deliveryDetailsSection.locator('input[type="radio"][name="shipping_address"][value="existing"]')
+        this.continueToDeliveryDetails = this.billingDetailsSection.locator('input[value="Continue"]')
+        this.continueToDeliveryMethod = this.deliveryDetailsSection.locator('input[value="Continue"]')
         
         this.shippingMethod = this.deliveryMethodSection.locator('input[type="radio"][name="shipping_method"] >> //ancestor::label')
         this.continueToPaymentMethod = this.deliveryMethodSection.locator('input[value="Continue"]')
@@ -87,7 +91,13 @@ export default class CheckoutPage {
         await this.continueToBillingDetails.click();
     }
 
+
+
     async proceedToDeliveryDetails(): Promise<void> {
+        await this.continueToDeliveryDetails.click()
+    }
+
+    async proceedToDeliveryMethod(): Promise<void> {
         await this.continueToDeliveryMethod.click()
     }
 
@@ -103,20 +113,18 @@ export default class CheckoutPage {
         await this.confirmOrder.click()
     }
 
-    async setPersonalDetails(firstName: string, lastName: string, email: string, telephone: string): Promise<void> {
-        await this.firstName.fill(firstName)
-        await this.lastName.fill(lastName)
-        await this.email.fill(email)
-        await this.telephone.fill(telephone)
+    async setPersonalDetails(personalDetails: {firstName: string, lastName: string}): Promise<void> {
+        await this.firstName.fill(personalDetails.firstName)
+        await this.lastName.fill(personalDetails.lastName)
     }
 
-    async setAddressDetails(address: string, city: string, postalCode: string, country: string, region: string): Promise<void> {
-        await this.address.fill(address)
-        await this.city.fill(city)
-        await this.postalCode.fill(postalCode)
-        await this.countryDropdown.selectOption({label: country})
+    async setAddressDetails(personalDetails: {address: string, city: string, postalCode: string, country: string, province: string}): Promise<void> {
+        await this.address.fill(personalDetails.address)
+        await this.city.fill(personalDetails.city)
+        await this.postalCode.fill(personalDetails.postalCode)
+        await this.countryDropdown.selectOption({label: personalDetails.country})
         await this.page.waitForTimeout(1000)
-        await this.regionDropdown.selectOption({label: region})
+        await this.regionDropdown.selectOption({label: personalDetails.province})
         await this.page.waitForTimeout(1000)
     }
 

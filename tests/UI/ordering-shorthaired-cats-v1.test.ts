@@ -1,10 +1,16 @@
 import { expect } from '@playwright/test';
 import {test} from '../../support-code/pages/index'
+import TestDataGenerator from '../../support-code/utilities/testdata-generator';
+
+const RandomAccount = TestDataGenerator.generatePerson()
 
 test(`Ordering a Bombay Cat`, async ({page, SogetiPetStore}) => {
   await test.step('Select Category and Product', async () => {
     await page.goto('')
-    await expect(await SogetiPetStore.homePage.getPageLocator()).toBeVisible()
+    await SogetiPetStore.homePage.topBarComponent.registerAccount()
+    await SogetiPetStore.accountPage.setPersonalDetails(RandomAccount)
+    await SogetiPetStore.accountPage.setPassword(RandomAccount)
+    
     await SogetiPetStore.homePage.navBarComponent.SelectCategory("Cats", "Short Haired Cats")
     await SogetiPetStore.productsPage.addProductToCart("Bombay")
     await expect(await SogetiPetStore.productsPage.messageComponent.getSuccesMessageLocator()).toContainText("Success: You have added Bombay to your shopping cart!")
@@ -24,21 +30,20 @@ test(`Ordering a Bombay Cat`, async ({page, SogetiPetStore}) => {
     await expect(await SogetiPetStore.shoppingCartPage.getTotalPrice()).toContainText("935.00€")
   });
 
-  await test.step('Proceed to checkout as a guest', async () => {
+  await test.step('Proceed to checkout', async () => {
     await SogetiPetStore.shoppingCartPage.proceedToCheckout();
-    await SogetiPetStore.checkoutPage.setGuestCheckout();
-    await SogetiPetStore.checkoutPage.proceedToBillingDetails();
   });
 
   await test.step('Add Personal Details to order and set billing and shipping adress to the same adress', async () => {
-    await SogetiPetStore.checkoutPage.setPersonalDetails("test", "test", "test.test@test.nl", "06123456789")
-    await SogetiPetStore.checkoutPage.setAddressDetails("Lange Dreef 17", "Vianen", "4131NJ", "Netherlands", "Utrecht")
-    await expect (await SogetiPetStore.checkoutPage.getSameAddressCheckbox()).toBeChecked();
+    await SogetiPetStore.checkoutPage.setPersonalDetails(RandomAccount)
+    await SogetiPetStore.checkoutPage.setAddressDetails(RandomAccount)
+
   });
 
   await test.step('Proceed to delivery method and verify shipping method and price', async () => {
     await SogetiPetStore.checkoutPage.proceedToDeliveryDetails();
-    await expect(await SogetiPetStore.checkoutPage.getShipingMethod()).toContainText("5.50€")
+    await expect (await SogetiPetStore.checkoutPage.getSameAddressCheckbox()).toBeChecked();
+    await SogetiPetStore.checkoutPage.proceedToDeliveryMethod()
   });
 
   await test.step('Proceed to payment method and accept terms & conditions', async () => {

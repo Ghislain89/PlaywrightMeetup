@@ -1,7 +1,6 @@
 import { test as baseTest } from '@playwright/test'
 import SogetiPetStoreIndex from './sogetiPetstore/sogetiPetstore.index'
 import ApiIndex from '../API/api.index'
-import orderQueries from '../database/orderQueries.database'
 
 export const test = baseTest.extend<{
     SogetiPetStore: SogetiPetStoreIndex
@@ -14,9 +13,6 @@ export const test = baseTest.extend<{
     },
     API: async ({ request }, use) => {
         await use(new ApiIndex(request))
-    },
-    Database: async ({}, use) => {
-        await use(new orderQueries())
     }
 }
 

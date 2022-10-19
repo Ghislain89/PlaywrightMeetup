@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import AccountPage from "./account.page";
 import CheckoutPage from "./checkout.page";
 import HomePage from "./home.page";
 import ProductDetailPage from "./productDetail.page";
@@ -9,6 +10,7 @@ import SuccessPage from "./success.page";
 export default class SogetiPetStoreIndex {
     page: Page;
     homePage: HomePage;
+    accountPage: AccountPage
     productsPage: ProductsPage;
     shoppingCartPage: ShoppingCartPage;
     checkoutPage: CheckoutPage;
@@ -24,5 +26,6 @@ export default class SogetiPetStoreIndex {
         this.checkoutPage = new CheckoutPage(page)
         this.successPage = new SuccessPage(page)
         this.productDetailPage = new ProductDetailPage(page)
+        this.accountPage = new AccountPage(this.page)
     }
 }
