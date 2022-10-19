@@ -8,7 +8,7 @@ test.beforeEach(async ({ API }) => {
   sessionId = await API.sessionApi.initializeSession()
 });
 
-test(`Ordering a British Shorthair Cat through the API`, async ({ API, Database }) => {
+test(`Ordering a British Shorthair Cat through the API`, async ({ API}) => {
   await test.step('Add Item to Cart', async () => {
     const response = await API.cartApi.addItemToCart(sessionId, "56", "1")
     expect(response.ok()).toBe(true)
@@ -55,11 +55,6 @@ test(`Ordering a British Shorthair Cat through the API`, async ({ API, Database 
   await test.step('get order overview', async () => {
     const response = await API.confirmApi.confirmOrder(sessionId)    
     expect(response.ok()).toBe(true)
-  });
-
-  await test.step('Validate that the order has been created in the database', async () => {
-    const row = await Database.validateOrderInDB(orderId)
-    expect (row[0].order_id).toBe(orderId)
   });
 
 });
