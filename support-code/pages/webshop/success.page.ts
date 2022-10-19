@@ -4,11 +4,13 @@ export default class SuccessPage {
     page: Page;
     private title: Locator;
     private continueButton: Locator;
+    pageLocator: Locator;
 
 
     constructor(page: Page) {
         this.page = page
-        this.title = this.page.locator("h1")
+        this.pageLocator = this.page.locator("#content")
+        this.title = this.pageLocator.locator("h1")
         this.continueButton = this.page.locator('a:text-is("Continue ")')
 
     }
@@ -20,6 +22,7 @@ export default class SuccessPage {
 
     async continueToHomePage():Promise<void> {
         await this.continueButton.click();
+       
     }
 
 }
