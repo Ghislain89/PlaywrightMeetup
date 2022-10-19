@@ -42,7 +42,7 @@ export default class orderSummaryPage {
         
         this.paymentOptions = this.pageLocator.locator(".payment_module")
         this.bankWire = this.paymentOptions.locator(".bankwire")
-        this.confirmOrderButton = this.page.locator(`button[type="submit"] span:text-is("I confirm my order")`)
+        this.confirmOrderButton = this.page.locator(`button[type="submit"] span:text-is("I confirm my order ")`)
     }
 
     async getProductAvailability() {
