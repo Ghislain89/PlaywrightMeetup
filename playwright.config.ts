@@ -1,5 +1,4 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -33,7 +32,7 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     viewport: {width: 1920, height: 1080},
-    baseURL: process.env.baseUrl,
+    baseURL: "http://playwright-meetup.northeurope.cloudapp.azure.com/",
     headless: false,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 30000,
