@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "OCSESSID",
+      "value": "563b8f7749c7c4e28e38006265",
+      "domain": "playwright-meetup.northeurope.cloudapp.azure.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "language",
+      "value": "en-gb",
+      "domain": ".playwright-meetup.northeurope.cloudapp.azure.com",
+      "path": "/",
+      "expires": 1668782893.673022,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "currency",
+      "value": "EUR",
+      "domain": ".playwright-meetup.northeurope.cloudapp.azure.com",
+      "path": "/",
+      "expires": 1668782893.673115,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
