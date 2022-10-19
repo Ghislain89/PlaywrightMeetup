@@ -11,7 +11,7 @@ export default class SuccessPage {
         this.page = page
         this.pageLocator = this.page.locator("#content")
         this.title = this.pageLocator.locator("h1")
-        this.continueButton = this.page.locator('a:text-is("Contineu")')
+        this.continueButton = this.page.locator('a:text-is("Continue")')
 
     }
 
