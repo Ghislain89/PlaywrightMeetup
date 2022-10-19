@@ -1,21 +1,24 @@
-import { faker } from '@faker-js/faker/locale/en_US';
+import { faker } from '@faker-js/faker/locale/nl';
 
 export default class TestDataGenerator {
     
-    public static generateAccount() {
+    public static generatePerson() {
        return {
-        firstName: faker.name.firstName(),
+        Name: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        password: faker.internet.password(),
-        DoB: "1",
-        MoB: "1",
-        YoB: "1980",
         email: faker.internet.email(),
-        address: faker.address.streetAddress(),
-        city: faker.address.cityName(),
-        state: "Alabama",
-        zipcode: faker.address.zipCode("#####"),
-        mobilePhone: faker.phone.number("501######")
+        phone: faker.phone.number('06#########')
        }
     }
+
+    public static generateAddress() {
+        return{
+        street: faker.address.streetAddress(),
+        postalCode: faker.address.zipCode(),
+        city: faker.address.cityName(),
+        country: "Netherlands",
+        province: "Utrecht"
+        }
+    }
+
 }
