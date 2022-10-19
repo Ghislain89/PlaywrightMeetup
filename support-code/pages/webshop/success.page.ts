@@ -9,7 +9,7 @@ export default class SuccessPage {
     constructor(page: Page) {
         this.page = page
         this.title = this.page.locator("h1")
-        this.continueButton = this.page.locator('a:text-is("Continue")')
+        this.continueButton = this.page.locator('a:text-is("Continue ")')
 
     }
 

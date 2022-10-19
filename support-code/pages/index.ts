@@ -1,15 +1,14 @@
 import { test as baseTest } from '@playwright/test'
-import SogetiPetStoreIndex from './sogetiPetstore/sogetiPetstore.index'
+import WebshopIndex from './webshop/webshop.index'
 import ApiIndex from '../API/api.index'
 
 export const test = baseTest.extend<{
-    SogetiPetStore: SogetiPetStoreIndex
+    webshop: WebshopIndex
     API: ApiIndex
-    Database: orderQueries
 
 }>({
-    SogetiPetStore: async ({ page }, use) => {
-        await use(new SogetiPetStoreIndex(page))
+    webshop: async ({ page }, use) => {
+        await use(new WebshopIndex(page))
     },
     API: async ({ request }, use) => {
         await use(new ApiIndex(request))

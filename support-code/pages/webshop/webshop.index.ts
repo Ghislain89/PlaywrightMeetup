@@ -7,7 +7,7 @@ import ProductsPage from "./products.page";
 import ShoppingCartPage from "./shoppingCart.page";
 import SuccessPage from "./success.page";
 
-export default class SogetiPetStoreIndex {
+export default class WebshopIndex {
     page: Page;
     homePage: HomePage;
     accountPage: AccountPage

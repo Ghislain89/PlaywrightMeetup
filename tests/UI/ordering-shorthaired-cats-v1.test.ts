@@ -4,66 +4,66 @@ import TestDataGenerator from '../../support-code/utilities/testdata-generator';
 
 const RandomAccount = TestDataGenerator.generatePerson()
 
-test(`Ordering a Bombay Cat`, async ({page, SogetiPetStore}) => {
+test(`Ordering a Bombay Cat`, async ({page, webshop}) => {
   await test.step('Select Category and Product', async () => {
     await page.goto('')
-    await SogetiPetStore.homePage.topBarComponent.registerAccount()
-    await SogetiPetStore.accountPage.setPersonalDetails(RandomAccount)
-    await SogetiPetStore.accountPage.setPassword(RandomAccount)
+    await webshop.homePage.topBarComponent.registerAccount()
+    await webshop.accountPage.setPersonalDetails(RandomAccount)
+    await webshop.accountPage.setPassword(RandomAccount)
     
-    await SogetiPetStore.homePage.navBarComponent.SelectCategory("Cats", "Short Haired Cats")
-    await SogetiPetStore.productsPage.addProductToCart("Bombay")
-    await expect(await SogetiPetStore.productsPage.messageComponent.getSuccesMessageLocator()).toContainText("Success: You have added Bombay to your shopping cart!")
+    await webshop.homePage.navBarComponent.SelectCategory("Cats", "Short Haired Cats")
+    await webshop.productsPage.addProductToCart("Bombay")
+    await expect(await webshop.productsPage.messageComponent.getSuccesMessageLocator()).toContainText("Success: You have added Bombay to your shopping cart!")
   });
 
   await test.step('The product has been added to the shopping Cart', async () => {
-    await SogetiPetStore.productsPage.shoppingCartComponent.openCart()
-    await expect(await SogetiPetStore.productsPage.shoppingCartComponent.getProduct()).toContainText("Bombay")
-    await expect(await SogetiPetStore.productsPage.shoppingCartComponent.getAmount()).toContainText("x1")
-    await expect(await SogetiPetStore.productsPage.shoppingCartComponent.getTotalPrice()).toContainText("935.00€")
+    await webshop.productsPage.shoppingCartComponent.openCart()
+    await expect(await webshop.productsPage.shoppingCartComponent.getProduct()).toContainText("Bombay")
+    await expect(await webshop.productsPage.shoppingCartComponent.getAmount()).toContainText("x1")
+    await expect(await webshop.productsPage.shoppingCartComponent.getTotalPrice()).toContainText("935.00€")
   });
 
   await test.step('The correct price breakdown should be displayed on the shopping cart page', async () => {
-    await SogetiPetStore.productsPage.shoppingCartComponent.viewCartPage()
-    await expect(await SogetiPetStore.shoppingCartPage.getSubtotalAmount()).toContainText("850.00€")
-    await expect(await SogetiPetStore.shoppingCartPage.getTaxAmount()).toContainText("85.00€")
-    await expect(await SogetiPetStore.shoppingCartPage.getTotalPrice()).toContainText("935.00€")
+    await webshop.productsPage.shoppingCartComponent.viewCartPage()
+    await expect(await webshop.shoppingCartPage.getSubtotalAmount()).toContainText("850.00€")
+    await expect(await webshop.shoppingCartPage.getTaxAmount()).toContainText("85.00€")
+    await expect(await webshop.shoppingCartPage.getTotalPrice()).toContainText("935.00€")
   });
 
   await test.step('Proceed to checkout', async () => {
-    await SogetiPetStore.shoppingCartPage.proceedToCheckout();
+    await webshop.shoppingCartPage.proceedToCheckout();
   });
 
   await test.step('Add Personal Details to order and set billing and shipping adress to the same adress', async () => {
-    await SogetiPetStore.checkoutPage.setPersonalDetails(RandomAccount)
-    await SogetiPetStore.checkoutPage.setAddressDetails(RandomAccount)
+    await webshop.checkoutPage.setPersonalDetails(RandomAccount)
+    await webshop.checkoutPage.setAddressDetails(RandomAccount)
 
   });
 
   await test.step('Proceed to delivery method and verify shipping method and price', async () => {
-    await SogetiPetStore.checkoutPage.proceedToDeliveryDetails();
-    await expect (await SogetiPetStore.checkoutPage.getSameAddressCheckbox()).toBeChecked();
-    await SogetiPetStore.checkoutPage.proceedToDeliveryMethod()
+    await webshop.checkoutPage.proceedToDeliveryDetails();
+    await expect (await webshop.checkoutPage.getSameAddressCheckbox()).toBeChecked();
+    await webshop.checkoutPage.proceedToDeliveryMethod()
   });
 
   await test.step('Proceed to payment method and accept terms & conditions', async () => {
-    await SogetiPetStore.checkoutPage.proceedToPaymentMethod();
-    await SogetiPetStore.checkoutPage.acceptTermsAndConditions();
+    await webshop.checkoutPage.proceedToPaymentMethod();
+    await webshop.checkoutPage.acceptTermsAndConditions();
   });
 
   await test.step('Proceed to confirm order and verify price breakdown', async () => {
-    await SogetiPetStore.checkoutPage.proceedToConfirmOrder();
-    await expect (await SogetiPetStore.checkoutPage.getUnitPrice()).toContainText("935.00€")
-    await expect (await SogetiPetStore.checkoutPage.getSubTotal()).toContainText("850.00€")
-    await expect (await SogetiPetStore.checkoutPage.getShippingRate()).toContainText("5.00€")
-    await expect (await SogetiPetStore.checkoutPage.getTaxAmount()).toContainText("85.50€")
-    await expect (await SogetiPetStore.checkoutPage.getTotalAmount()).toContainText("940.50€")
+    await webshop.checkoutPage.proceedToConfirmOrder();
+    await expect (await webshop.checkoutPage.getUnitPrice()).toContainText("935.00€")
+    await expect (await webshop.checkoutPage.getSubTotal()).toContainText("850.00€")
+    await expect (await webshop.checkoutPage.getShippingRate()).toContainText("5.00€")
+    await expect (await webshop.checkoutPage.getTaxAmount()).toContainText("85.50€")
+    await expect (await webshop.checkoutPage.getTotalAmount()).toContainText("940.50€")
   });
 
   await test.step('Confirm Order and veriy success message', async () => {
-    await SogetiPetStore.checkoutPage.confirmTheOrder();
-    await expect(await SogetiPetStore.successPage.getTitle()).toContainText("Your order has been placed!")
-    await SogetiPetStore.successPage.continueToHomePage();
+    await webshop.checkoutPage.confirmTheOrder();
+    await expect(await webshop.successPage.getTitle()).toContainText("Your order has been placed!")
+    await webshop.successPage.continueToHomePage();
   });
 
 });
